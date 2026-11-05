@@ -1,0 +1,483 @@
+index.html
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Whitelist Application</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --blue: #008cff;
+    --cyan: #00eaff;
+    --dark: #020617;
+}
+
+body {
+    font-family: 'Kanit', sans-serif;
+    min-height: 100vh;
+    padding: 40px 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+    radial-gradient(ellipse at 20% 30%, #063d83 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, #003c75 0%, transparent 50%),
+    linear-gradient(135deg, #020617, #071a38, #020617);
+
+    background-size: 200% 200%;
+    animation: backgroundMove 15s ease infinite alternate;
+
+    overflow-x: hidden;
+    color: white;
+}
+
+@keyframes backgroundMove {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+/* แสงเคลื่อนไหว */
+.light {
+    position: fixed;
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.45;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.light1 {
+    background: #0077ff;
+    top: -150px;
+    left: -150px;
+    animation: lightMove1 8s infinite alternate;
+}
+
+.light2 {
+    background: #00eaff;
+    bottom: -150px;
+    right: -150px;
+    animation: lightMove2 10s infinite alternate;
+}
+
+@keyframes lightMove1 {
+    to { transform: translate(250px, 200px); }
+}
+
+@keyframes lightMove2 {
+    to { transform: translate(-250px, -200px); }
+}
+
+/* อนุภาคดิจิทัล */
+.particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+
+    background-image:
+        radial-gradient(2px 2px at 20% 30%, #00eaff, transparent),
+        radial-gradient(2px 2px at 70% 20%, #008cff, transparent),
+        radial-gradient(2px 2px at 40% 80%, #00eaff, transparent),
+        radial-gradient(2px 2px at 90% 60%, #008cff, transparent),
+        radial-gradient(2px 2px at 15% 70%, #ffffff, transparent),
+        radial-gradient(2px 2px at 60% 50%, #00eaff, transparent);
+
+    background-size: 250px 250px;
+    animation: particleMove 20s linear infinite;
+}
+
+@keyframes particleMove {
+    from { background-position: 0 0; }
+    to { background-position: 250px 500px; }
+}
+
+/* กล่องฟอร์ม */
+.container {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 700px;
+    padding: 35px 40px;
+
+    border-radius: 20px;
+
+    background: rgba(4, 15, 40, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    border: 1px solid rgba(0, 200, 255, 0.5);
+
+    box-shadow:
+        0 0 25px #007bff44,
+        0 0 60px #00eaff22,
+        inset 0 0 25px #008cff11;
+
+    animation: appear 1s ease, float 6s ease-in-out infinite;
+
+    overflow: hidden;
+}
+
+/* แสงวิ่งขอบกล่อง */
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #ffffff,
+        #00eaff,
+        transparent
+    );
+
+    animation: borderLight 4s linear infinite;
+}
+
+@keyframes borderLight {
+    to { left: 100%; }
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+/* มงกุฎ */
+.crown {
+    text-align: center;
+    font-size: 55px;
+    color: #00c8ff;
+
+    text-shadow:
+        0 0 10px #00c8ff,
+        0 0 30px #007bff;
+
+    animation: crownGlow 2s infinite alternate;
+}
+
+@keyframes crownGlow {
+    from { text-shadow: 0 0 10px #00c8ff; }
+
+    to {
+        text-shadow:
+            0 0 25px #00eaff,
+            0 0 45px #007bff;
+    }
+}
+
+/* หัวข้อ */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    color: white;
+    font-size: 32px;
+    font-weight: 600;
+
+    text-shadow:
+        0 0 10px #00aaff,
+        0 0 25px #007bff;
+}
+
+.header p {
+    color: #d7f5ff;
+    font-size: 15px;
+}
+
+.header .line {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 12px 0;
+}
+
+.header .line span {
+    flex: 1;
+    height: 1px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #00c8ff,
+        transparent
+    );
+}
+
+/* ฟอร์ม */
+form {
+    position: relative;
+    z-index: 1;
+}
+
+label {
+    display: block;
+    color: #eafaff;
+    font-size: 15px;
+
+    margin-top: 18px;
+    margin-bottom: 8px;
+}
+
+/* ช่องกรอก */
+input, select, textarea {
+    width: 100%;
+    padding: 13px 15px;
+
+    background: rgba(2, 12, 35, 0.9);
+
+    border: 1px solid #164b83;
+    border-radius: 10px;
+
+    color: white;
+    outline: none;
+
+    font-family: 'Kanit', sans-serif;
+    font-size: 14px;
+
+    transition: all 0.3s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #8ba9ce;
+}
+
+/* เอฟเฟกต์ตอนคลิก */
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #00eaff;
+
+    box-shadow:
+        0 0 12px #00c8ff66,
+        0 0 25px #008cff33;
+
+    transform: translateY(-2px);
+}
+
+select option {
+    background: #06152e;
+    color: white;
+}
+
+textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+/* อายุ IC / OC */
+.age-group {
+    display: flex;
+    gap: 20px;
+}
+
+.age-group div {
+    flex: 1;
+}
+
+/* ปุ่มส่ง */
+button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 15px;
+
+    border: 1px solid #00eaff;
+    border-radius: 10px;
+
+    background: linear-gradient(
+        110deg,
+        #0066ff,
+        #00bfff,
+        #0066ff
+    );
+
+    background-size: 200% 100%;
+
+    color: white;
+    font-family: 'Kanit', sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+
+    cursor: pointer;
+    transition: 0.4s;
+
+    box-shadow: 0 0 15px #008cff55;
+
+    animation: buttonGlow 2s infinite alternate;
+}
+
+button:hover {
+    background-position: 100% 0;
+    transform: translateY(-3px) scale(1.01);
+
+    box-shadow:
+        0 0 20px #00c8ff,
+        0 0 40px #008cff66;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+@keyframes buttonGlow {
+    from { box-shadow: 0 0 10px #008cff44; }
+    to { box-shadow: 0 0 20px #00eaff99; }
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    color: #c8efff;
+    font-size: 12px;
+    margin-top: 22px;
+    opacity: 0.8;
+}
+
+/* มือถือ */
+@media (max-width: 600px) {
+    body { padding: 15px; }
+
+    .container { padding: 25px 20px; }
+
+    .header h1 { font-size: 23px; }
+
+    .crown { font-size: 42px; }
+
+    .age-group { gap: 10px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="light light1"></div>
+<div class="light light2"></div>
+<div class="particles"></div>
+
+<div class="container">
+
+    <div class="crown">♛</div>
+
+    <div class="header">
+        <h1>Whitelist Application Form</h1>
+
+        <div class="line">
+            <span></span>
+            <p>แบบฟอร์มสมัครเข้าเมือง</p>
+            <span></span>
+        </div>
+    </div>
+
+    <form id="whitelistForm">
+
+        <label>👤 ชื่อ IC (ชื่อตัวละครในเกม)</label>
+        <input
+            type="text"
+            name="ic_name"
+            placeholder="กรอกชื่อ IC"
+            required
+        >
+
+        <div class="age-group">
+            <div>
+                <label>📅 อายุ IC</label>
+                <input
+                    type="number"
+                    name="ic_age"
+                    placeholder="อายุ IC"
+                    min="1"
+                    required
+                >
+            </div>
+
+            <div>
+                <label>📅 อายุ OC</label>
+                <input
+                    type="number"
+                    name="oc_age"
+                    placeholder="อายุ OC"
+                    min="1"
+                    required
+                >
+            </div>
+        </div>
+
+        <label>⚥ เพศตัวละคร IC</label>
+        <select name="gender" required>
+            <option value="">-- เลือกเพศ --</option>
+            <option value="ชาย">ชาย</option>
+            <option value="หญิง">หญิง</option>
+            <option value="อื่นๆ">อื่นๆ</option>
+        </select>
+
+        <label>🔍 รู้จักเซิร์ฟเวอร์จากที่ไหน?</label>
+        <input
+            type="text"
+            name="source"
+            placeholder="เช่น TikTok, Facebook, เพื่อน"
+            required
+        >
+
+        <label>💬 เหตุผลที่อยากเข้าเมือง</label>
+        <textarea
+            name="reason"
+            placeholder="เขียนเหตุผลที่อยากเข้าเมือง..."
+            required
+        ></textarea>
+
+        <button type="submit">➤ Submit Application</button>
+
+    </form>
+
+    <div class="footer">
+        © 2026 Roleplay Server
+    </div>
+
+</div>
+
+<script>
+document.getElementById("whitelistForm")
+.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    alert("ส่งใบสมัครเรียบร้อยแล้ว! กรุณารอทีมงานตรวจสอบ");
+});
+</script>
+
+</body>
+</html>
